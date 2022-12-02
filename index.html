@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Details of Civilians</h1>
+    </header>
+
+    <form action="" id="formDetails">
+      <input type="text" name="" id="name" placeholder="Enter your name">
+      <input type="text" name="" id="age" placeholder="Enter your age">
+      <select name="" id="qualification">
+        <option value="">Please Select your Qualification</option>
+        <option value="ssc">Secondary</option>
+        <option value="hsc">Higher Secondary</option>
+        <option value="graduate">Graduate</option>
+        <option value="postGraduate">Post Graduate</option>
+      </select>
+      <input type="text" name="" id="pan" placeholder="Enter your PAN Number">
+      <button type="submit" id="add_btn" class="btn">Add</button>
+      <div class="error_msg"></div>
+      <div class="sortSearch">
+      <button class="sort btn">A-Z</button>
+      <button class="sort btn">a-z</button>
+      <input type="search" name="" id="search" placeholder="Search by PAN number">
+     
+      </div>
+    </form>
+    
+
+    <section class="display">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Qualification</th>
+                    <th>PAN number</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="table_body">
+             
+            </tbody>
+        </table>
+    </section>
+
+
+
+<script src="script.js"></script>
+</body>
+</html>
