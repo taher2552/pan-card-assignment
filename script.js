@@ -116,6 +116,47 @@ function deletePersonDetails(e){
     console.log(e)
 }
 
+function sortingByName(e){
+  e.preventDefault();
+  tableDisplayInfo.innerHTML="";
+  if(e.target.innerHTML=="A-Z"){
+  function ascending( a, b ) {
+    if ( a.name < b.name ){
+      return -1;
+    }
+    if ( a.name > b.name ){
+      return 1;
+    }
+    return 0;
+  }
+  personDetailsArray.sort(ascending);
+
+  personDetailsArray.map((obj)=>{
+    displayPersonInformation(obj);
+  })
+}
+  if(e.target.innerHTML=="a-z"){
+  function descending( a, b ) {
+    if ( a.name < b.name ){
+      return 1;
+    }
+    if ( a.name > b.name ){
+      return -1;
+    }
+    return 0;
+  }
+  personDetailsArray.sort( descending );
+
+  personDetailsArray.map((obj)=>{
+    displayPersonInformation(obj);
+  })
+}
+  
+
+    
+  }
+
+
 
 
 addButton.addEventListener("click", addDetails);
@@ -127,4 +168,8 @@ tableDisplayInfo.addEventListener("click",(e)=>{
     }
 })
 
-formDetails.addEventListener
+formDetails.addEventListener('click', (e)=>{
+  if(e.target.classList.contains("sort")){
+    sortingByName(e);
+  }
+})
