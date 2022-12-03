@@ -142,7 +142,7 @@ else if(addButton.innerText=="Save"){
 
 function deletePersonDetails(e){
  
-  personDetailsArray.map((val,index)=>{
+  personDetailsArray.forEach((val,index)=>{
       if(val.id===parseInt(e.path[2].id)){
         let confirm=window.confirm("Are you sure you want to delete this??")
         if(confirm){
