@@ -1,3 +1,5 @@
+// -----------variables to target html tags and others--------------------
+
 const addButton = document.getElementById("add_btn");
 const nameOfPerson = document.getElementById("name");
 const ageOfPerson = document.getElementById("age");
@@ -11,17 +13,22 @@ let count=0;
 let nameEdit, ageEdit, qualificationEdit, panNumberEdit;
 let panArray=[];
 
+// ----------parse array for local storage--------------
 
 let personDetailsArray=JSON.parse(localStorage.getItem("person"));
 if(!personDetailsArray){
     personDetailsArray=[];
 }
 
+// ---function displayPersonInformation to display table after refreshing also---
+
 personDetailsArray.map((obj)=>{
     displayPersonInformation(obj);
 })
 
 // console.log(personDetailsArray)
+
+// ----function to reset all value ------
 
 function resetForm() {
   nameOfPerson.value = "";
@@ -35,12 +42,16 @@ function resetForm() {
   errorMessage.innerText = "";
 }
 
+// ----function to display information on our web page-----
+
 function displayPersonInformation(personDetailsObject){
    
     tableDisplayInfo.innerHTML+=`<tr id=${personDetailsObject.id}><td>${personDetailsObject.name}</td><td>${personDetailsObject.age}</td><td>${personDetailsObject.qualification}</td><td class="pan">${personDetailsObject.panNumber}</td><td><button class="delete btn">Delete</button><button class="edit btn">Edit</button></td></tr>`
 
 
 }
+
+// -----function to add details from input and all validations---
 
 function addDetails(e) {
   e.preventDefault();
@@ -93,7 +104,7 @@ function addDetails(e) {
     return;
   } 
   else if (panNumberOfPerson.value.length !== 10) {
-    errorMessage.innerText = "*PAN number should have maximum of 10 digits";
+    errorMessage.innerText = "*PAN number should have maximum of 10 characters";
     nameOfPerson.classList.remove("border");
     ageOfPerson.classList.remove("border");
     qualificationOfPerson.classList.remove("border");
@@ -127,6 +138,8 @@ else if(addButton.innerText=="Save"){
 }
 }
 
+//----function to delete row from table----
+
 function deletePersonDetails(e){
  
   personDetailsArray.map((val,index)=>{
@@ -143,6 +156,8 @@ function deletePersonDetails(e){
   
   localStorage.setItem("person", JSON.stringify(personDetailsArray));
 }
+
+//---function to sort by name in table----
 
 function sortingByName(e){
   e.preventDefault();
@@ -184,6 +199,8 @@ function sortingByName(e){
     
   }
 
+  //---this function is called when user wants to edit something----
+
   function editPersonDetails(e){
      nameEdit=e.path[2].firstElementChild;
       ageEdit=nameEdit.nextElementSibling;
@@ -201,6 +218,8 @@ function sortingByName(e){
    
     
 }
+
+//---this function is called when user press save button after editing things---
 
 function saveEditedPersonDetails(e,name,age,qualification,panNumber){
   e.preventDefault();
@@ -242,15 +261,59 @@ function saveEditedPersonDetails(e,name,age,qualification,panNumber){
   addButton.innerText='Add';
 }
 
+//---search function by pan number----
 
 
+function searchByPanNumber(e){
+  e.preventDefault();
+tableDisplayInfo.innerHTML="";
+
+const searchValue=searchPanNumber.value;
+//console.log(input)
+
+let searchResult=personDetailsArray.filter((val)=>{
+  if(val.panNumber.includes(searchValue)){
+    
+    return val;
+  }
+
+});
+//console.log(searchResult)
+if(searchResult.length!==0){
+searchResult.map((val)=>{
+  displayPersonInformation(val);
+})
+}else{
+  let val=tableDisplayInfo.innerHTML="No Data Found!!"
+
+  if(tableDisplayInfo.innerHTML=="No Data Found!!"){
+    tableDisplayInfo.classList.add("no_data_color");
+  }else{
+    tableDisplayInfo.classList.remove("no_data_color");
+  }
+  
+}
 
 
+$('input[type=search]').on('search', function () {
+  // search logic here
+  // this function will be executed on click of X (clear button)
+  tableDisplayInfo.innerHTML="";
+  personDetailsArray.map((obj)=>{
+    displayPersonInformation(obj);
+  })
+});
 
+}
+
+//---when user clicks on add button and Save button. (save buton will appear when user clicks on edit)---
 
 
 
 addButton.addEventListener("click", addDetails);
+
+
+//--when user clicks on edit or delete---
 
 tableDisplayInfo.addEventListener("click",(e)=>{
     if(e.target.classList.contains('delete')){
@@ -261,39 +324,17 @@ tableDisplayInfo.addEventListener("click",(e)=>{
     }
 })
 
+//---when user clicks on sort by A-Z or Z-A button---
+
 formDetails.addEventListener('click', (e)=>{
   if(e.target.classList.contains("sort")){
     sortingByName(e);
   }
 })
 
-searchPanNumber.addEventListener('keyup',(e)=>{
-e.preventDefault();
-tableDisplayInfo.innerHTML="";
+//when user search something in input 
+searchPanNumber.addEventListener('input',searchByPanNumber)
 
-const input=searchPanNumber.value;
-console.log(input)
-
-let filter=personDetailsArray.filter((val)=>val.panNumber.includes(input));
-console.log(filter)
-
-filter.map((val)=>{
-  displayPersonInformation(val);
-})
-
-
-
-
-})
-
-$('input[type=search]').on('search', function () {
-  // search logic here
-  // this function will be executed on click of X (clear button)
-  tableDisplayInfo.innerHTML="";
-  personDetailsArray.map((obj)=>{
-    displayPersonInformation(obj);
-  })
-});
 
 
 

@@ -5,6 +5,12 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+.container{
+    max-width: 1200px;
+    margin: 0 auto;
+    /* background-color:aqua; */
+}
+
 
 .border{
     border:2px solid red;
@@ -29,7 +35,8 @@ input,select{
 }
 table{
     width:80%;
-    margin: 0 auto;
+    min-width: 900px;
+    margin: 20px auto;
 }
 
 table,tr,th,td{
@@ -46,7 +53,7 @@ td{
 }
 
 th{
-    color: rgb(4, 44, 4);
+    color: rgb(5, 85, 5);
     font-size: 30px;
     padding: 10px 0;
 }
@@ -58,6 +65,7 @@ th{
     border-radius: 20px;
     border:2px solid rgb(131, 206, 131);
     width:8%;
+    min-width:100px;
 }
 
 .btn:hover{
@@ -69,6 +77,11 @@ th{
 
 .sortSearch{
     text-align: center;
+    
+}
+
+.sort{
+    margin-bottom: 10px;
 }
 
 .edit,.delete{
@@ -87,4 +100,14 @@ th{
     color:red;
     text-align: center;
     margin-bottom: 10px;
+}
+
+#add_btn{
+    margin-left: 10px;
+}
+
+.no_data_color{
+    color:red;
+    font-size: 30px;
+    margin: 30px;
 }
