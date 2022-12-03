@@ -259,6 +259,7 @@ function saveEditedPersonDetails(e,name,age,qualification,panNumber){
  
 
   addButton.innerText='Add';
+  resetForm();
 }
 
 //---search function by pan number----
