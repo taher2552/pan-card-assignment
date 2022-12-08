@@ -6,8 +6,8 @@ const ageOfPerson = document.getElementById("age");
 const qualificationOfPerson = document.getElementById("qualification");
 const panNumberOfPerson = document.getElementById("pan");
 const errorMessage = document.querySelector(".error_msg");
-const tableDisplayInfo=document.getElementById('table_body');
-const searchPanNumber=document.getElementById('search');
+const tableDisplayInfo = document.getElementById('table_body');
+const searchPanNumber = document.getElementById('search');
 
 let count=0;
 let nameEdit, ageEdit, qualificationEdit, panNumberEdit;
@@ -15,10 +15,12 @@ let panArray=[];
 
 // ----------parse array for local storage--------------
 
-let personDetailsArray=JSON.parse(localStorage.getItem("person"));
-if(!personDetailsArray){
-    personDetailsArray=[];
-}
+let personDetailsArray = JSON.parse(localStorage.getItem("person")) ?? [];
+// if(!personDetailsArray){
+//     personDetailsArray=[];
+// }
+
+//nulish
 
 // ---function displayPersonInformation to display table after refreshing also---
 
@@ -46,7 +48,12 @@ function resetForm() {
 
 function displayPersonInformation(personDetailsObject){
    
-    tableDisplayInfo.innerHTML+=`<tr id=${personDetailsObject.id}><td>${personDetailsObject.name}</td><td>${personDetailsObject.age}</td><td>${personDetailsObject.qualification}</td><td class="pan">${personDetailsObject.panNumber}</td><td><button class="delete btn">Delete</button><button class="edit btn">Edit</button></td></tr>`
+    tableDisplayInfo.innerHTML+=`<tr id=${personDetailsObject.id}>
+                                    <td>${personDetailsObject.name}</td>
+                                    <td>${personDetailsObject.age}</td>
+                                    <td>${personDetailsObject.qualification}</td>
+                                    <td class="pan">${personDetailsObject.panNumber}</td>
+    <td><button class="delete btn">Delete</button><button class="edit btn">Edit</button></td></tr>`
 
 
 }
@@ -112,7 +119,7 @@ function addDetails(e) {
     return;
   }
   
-  const personDetailsObject={
+  const personDetailsObject = {
     name:nameOfPerson.value,
     age:ageOfPerson.value,
     qualification:qualificationOfPerson.value,
@@ -126,7 +133,7 @@ function addDetails(e) {
 
   displayPersonInformation(personDetailsObject);
   panArray.push(panNumberOfPerson.value);
-  console.log(panArray)
+console.log(panArray)
 
   resetForm();
  
@@ -144,7 +151,7 @@ function deletePersonDetails(e){
  
   personDetailsArray.forEach((val,index)=>{
       if(val.id===parseInt(e.path[2].id)){
-        let confirm=window.confirm("Are you sure you want to delete this??")
+        let confirm = window.confirm("Are you sure you want to delete this??")
         if(confirm){
           personDetailsArray.splice(index,1); 
           e.path[2].remove();  
@@ -194,6 +201,8 @@ function sortingByName(e){
     displayPersonInformation(obj);
   })
 }
+
+//optimised sort 
   
 
     
@@ -202,16 +211,16 @@ function sortingByName(e){
   //---this function is called when user wants to edit something----
 
   function editPersonDetails(e){
-     nameEdit=e.path[2].firstElementChild;
-      ageEdit=nameEdit.nextElementSibling;
-      qualificationEdit=ageEdit.nextElementSibling;
-      panNumberEdit=qualificationEdit.nextElementSibling;
-    // console.log(panNumberEdit);
+     nameEdit = e.path[2].firstElementChild;
+      ageEdit = nameEdit.nextElementSibling;
+      qualificationEdit = ageEdit.nextElementSibling;
+      panNumberEdit = qualificationEdit.nextElementSibling;
+   
 
-    nameOfPerson.value=nameEdit.innerText;
-    ageOfPerson.value=ageEdit.innerText;
-    qualificationOfPerson.value=qualificationEdit.innerText;
-    panNumberOfPerson.value=panNumberEdit.innerText;
+    nameOfPerson.value = nameEdit.innerText;
+    ageOfPerson.value = ageEdit.innerText;
+    qualificationOfPerson.value = qualificationEdit.innerText;
+    panNumberOfPerson.value = panNumberEdit.innerText;
 
      addButton.innerText="Save";
 
@@ -223,13 +232,10 @@ function sortingByName(e){
 
 function saveEditedPersonDetails(e,name,age,qualification,panNumber){
   e.preventDefault();
-  // console.log(formInput.value,taskToEdit)
-
  
   personDetailsArray.map((val)=>{
 
-       //console.log(val.name, nameEdit.text)
-
+  
       if(val.name==nameEdit.textContent){
       // val.task=formInput.value;
         //  console.log("hellllllo")
@@ -269,10 +275,10 @@ function searchByPanNumber(e){
   e.preventDefault();
 tableDisplayInfo.innerHTML="";
 
-const searchValue=searchPanNumber.value;
+const searchValue = searchPanNumber.value;
 //console.log(input)
 
-let searchResult=personDetailsArray.filter((val)=>{
+let searchResult = personDetailsArray.filter((val)=>{
   if(val.panNumber.includes(searchValue)){
     
     return val;
@@ -285,7 +291,7 @@ searchResult.map((val)=>{
   displayPersonInformation(val);
 })
 }else{
-  let val=tableDisplayInfo.innerHTML="No Data Found!!"
+  tableDisplayInfo.innerHTML="No Data Found!!"
 
   if(tableDisplayInfo.innerHTML=="No Data Found!!"){
     tableDisplayInfo.classList.add("no_data_color");
@@ -296,14 +302,23 @@ searchResult.map((val)=>{
 }
 
 
-$('input[type=search]').on('search', function () {
-  // search logic here
-  // this function will be executed on click of X (clear button)
-  tableDisplayInfo.innerHTML="";
+// $('input[type=search]').on('search', function () {
+//   // search logic here
+//   // this function will be executed on click of X (clear button)
+//   tableDisplayInfo.innerHTML="";
+//   personDetailsArray.map((obj)=>{
+//     displayPersonInformation(obj);
+//   })
+// });
+
+document.querySelector('input[type=search]').addEventListener('search', ()=>{
+
+    tableDisplayInfo.innerHTML="";
   personDetailsArray.map((obj)=>{
     displayPersonInformation(obj);
   })
-});
+
+})
 
 }
 
@@ -321,7 +336,7 @@ tableDisplayInfo.addEventListener("click",(e)=>{
         deletePersonDetails(e);
     }
     else if(e.target.classList.contains('edit')){
-      editPersonDetails(e);
+        editPersonDetails(e);
     }
 })
 
