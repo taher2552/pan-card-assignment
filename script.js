@@ -172,7 +172,9 @@ function sortingByName(e){
   e.preventDefault();
   tableDisplayInfo.innerHTML="";
   if(e.target.innerHTML=="A-Z"){
-  function ascending( a, b ) {
+ 
+   
+  personDetailsArray.sort((a,b)=>{
     if ( a.name < b.name ){
       return -1;
     }
@@ -180,34 +182,28 @@ function sortingByName(e){
       return 1;
     }
     return 0;
-  }
-  personDetailsArray.sort(ascending);
-
-  personDetailsArray.map((obj)=>{
-    displayPersonInformation(obj);
-  })
+  });
 }
+
   if(e.target.innerHTML=="Z-A"){
-  function descending( a, b ) {
-    if ( a.name < b.name ){
-      return 1;
-    }
-    if ( a.name > b.name ){
-      return -1;
-    }
-    return 0;
-  }
-  personDetailsArray.sort( descending );
+    personDetailsArray.sort((a,b)=>{
+      if ( a.name < b.name ){
+        return 1;
+      }
+      if ( a.name > b.name ){
+        return -1;
+      }
+      return 0;
+    });
 
-  personDetailsArray.map((obj)=>{
-    displayPersonInformation(obj);
-  })
+
 }
-
 //optimised sort 
-  
 
-    
+personDetailsArray.map((val)=>{
+  displayPersonInformation(val)
+})
+   
   }
 
   //---this function is called when user wants to edit something----
