@@ -10,7 +10,7 @@ const tableDisplayInfo = document.getElementById('table_body');
 const searchPanNumber = document.getElementById('search');
 
 let count=0;
-let nameEdit, ageEdit, qualificationEdit, panNumberEdit;
+let nameEdit, ageEdit, qualificationEdit, panNumberEdit, idOfEditRow;
 let panArray=[];
 
 // ----------parse array for local storage--------------
@@ -124,7 +124,7 @@ function addDetails(e) {
     age:ageOfPerson.value,
     qualification:qualificationOfPerson.value,
     panNumber:panNumberOfPerson.value,
-    id:count++
+    id:Date.now()
   }
 
   personDetailsArray.push(personDetailsObject);
@@ -150,6 +150,8 @@ else if(addButton.innerText=="Save"){
 function deletePersonDetails(e){
  
   personDetailsArray.forEach((val,index)=>{
+
+    console.log(e)
       if(val.id===parseInt(e.path[2].id)){
         let confirm = window.confirm("Are you sure you want to delete this??")
         if(confirm){
@@ -215,6 +217,7 @@ function sortingByName(e){
       ageEdit = nameEdit.nextElementSibling;
       qualificationEdit = ageEdit.nextElementSibling;
       panNumberEdit = qualificationEdit.nextElementSibling;
+      idOfEditRow=e.path[2].id;
    
 
     nameOfPerson.value = nameEdit.innerText;
@@ -232,27 +235,20 @@ function sortingByName(e){
 
 function saveEditedPersonDetails(e,name,age,qualification,panNumber){
   e.preventDefault();
+
+  console.log(personDetailsArray)
  
   personDetailsArray.map((val)=>{
 
   
-      if(val.name==nameEdit.textContent){
+      if(val.id==idOfEditRow){
       // val.task=formInput.value;
         //  console.log("hellllllo")
        val.name=nameOfPerson.value;
-       
-      }
-      if(val.age==ageEdit.textContent){
-      
        val.age=ageOfPerson.value;
-      }
-      if(val.qualification==qualificationEdit.textContent){
-      // val.task=formInput.value;
        val.qualification=qualificationOfPerson.value;
-      }
-      if(val.panNumber==panNumberEdit.textContent){
-      // val.task=formInput.value;
        val.panNumber=panNumberOfPerson.value;
+       
       }
     
        })
