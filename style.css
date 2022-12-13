@@ -33,23 +33,29 @@ input,select{
     border-radius: 20px;
     margin-bottom: 10px;
 }
+
+
+table,tr,th,td{
+    border-collapse:separate;
+    border:2px solid rgb(131, 206, 131);
+    border-radius: 10px;
+    text-align: center;
+    
+    
+}
+
 table{
     width:80%;
     min-width: 900px;
     margin: 20px auto;
-}
-
-table,tr,th,td{
-    border-collapse: collapse;
-    border:2px solid rgb(131, 206, 131);
-    text-align: center;
-    
+    border:none;
 }
 
 td{
     color:rgb(4, 44, 4);
     font-size: 20px;
     padding:10px;
+   
 }
 
 th{
