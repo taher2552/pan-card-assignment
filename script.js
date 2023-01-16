@@ -152,11 +152,12 @@ function deletePersonDetails(e){
   personDetailsArray.forEach((val,index)=>{
 
     console.log(e)
-      if(val.id===parseInt(e.path[2].id)){
+    var path = e.path || (e.composedPath && e.composedPath());
+      if(val.id===parseInt(path[2].id)){
         let confirm = window.confirm("Are you sure you want to delete this??")
         if(confirm){
           personDetailsArray.splice(index,1); 
-          e.path[2].remove();  
+          path[2].remove();  
         }
       }
       
@@ -209,11 +210,13 @@ personDetailsArray.map((val)=>{
   //---this function is called when user wants to edit something----
 
   function editPersonDetails(e){
-     nameEdit = e.path[2].firstElementChild;
+    var path = e.path || (e.composedPath && e.composedPath());
+
+     nameEdit = path[2].firstElementChild;
       ageEdit = nameEdit.nextElementSibling;
       qualificationEdit = ageEdit.nextElementSibling;
       panNumberEdit = qualificationEdit.nextElementSibling;
-      idOfEditRow=e.path[2].id;
+      idOfEditRow= path[2].id;
    
 
     nameOfPerson.value = nameEdit.innerText;
