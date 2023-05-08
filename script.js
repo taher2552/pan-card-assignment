@@ -183,25 +183,31 @@ function sortingByName(e){
  
    
   personDetailsArray.sort((a,b)=>{
-    if ( a.name < b.name ){
-      return 1;
-    }
-    if ( a.name > b.name ){
+    if ( a.name.toLowerCase() < b.name.toLowerCase() ){
       return -1;
     }
-    return 0;
+    else if ( a.name.toLowerCase() > b.name.toLowerCase() ){
+      return 1;
+    }
+    else{
+      return 0;
+    }
+   
   });
 }
 
   if(e.target.innerHTML=="Z-A"){
     personDetailsArray.sort((a,b)=>{
-      if ( a.name < b.name ){
-        return -1;
-      }
-      if ( a.name > b.name ){
+      if ( a.name.toLowerCase() < b.name.toLowerCase() ){
         return 1;
       }
-      return 0;
+      else if ( a.name.toLowerCase() > b.name.toLowerCase() ){
+        return -1;
+      }
+      else{
+        return 0;
+      }
+     
     });
 
 
