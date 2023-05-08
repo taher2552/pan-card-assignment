@@ -8,6 +8,7 @@ const panNumberOfPerson = document.getElementById("pan");
 const errorMessage = document.querySelector(".error_msg");
 const tableDisplayInfo = document.getElementById('table_body');
 const searchPanNumber = document.getElementById('search');
+const formDetails = document.getElementById('formDetails');
 
 let count=0;
 let nameEdit, ageEdit, qualificationEdit, panNumberEdit, idOfEditRow;
@@ -351,6 +352,7 @@ tableDisplayInfo.addEventListener("click",(e)=>{
 //---when user clicks on sort by A-Z or Z-A button---
 
 formDetails.addEventListener('click', (e)=>{
+
   if(e.target.classList.contains("sort")){
     sortingByName(e);
   }
