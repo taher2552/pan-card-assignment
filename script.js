@@ -15,6 +15,7 @@ let panArray=[];
 
 // ----------parse array for local storage--------------
 
+
 let personDetailsArray = JSON.parse(localStorage.getItem("person")) ?? [];
 // if(!personDetailsArray){
 //     personDetailsArray=[];
@@ -54,8 +55,7 @@ function displayPersonInformation(personDetailsObject){
                                     <td>${personDetailsObject.qualification}</td>
                                     <td class="pan">${personDetailsObject.panNumber}</td>
     <td><button class="delete btn">Delete</button><button class="edit btn">Edit</button></td></tr>`
-
-
+  
 }
 
 // -----function to add details from input and all validations---
@@ -89,6 +89,14 @@ function addDetails(e) {
     qualificationOfPerson.classList.remove("border");
     panNumberOfPerson.classList.remove("border");
 
+    return;
+  }
+  else if(Number(ageOfPerson.value) >=100 || Number(ageOfPerson.value) <=0 ){
+    errorMessage.innerText = "*Please enter age between 0 to 100";
+    nameOfPerson.classList.remove("border");
+    ageOfPerson.classList.add("border");
+    qualificationOfPerson.classList.remove("border");
+    panNumberOfPerson.classList.remove("border");
     return;
   }
 
@@ -132,8 +140,7 @@ function addDetails(e) {
   localStorage.setItem('person', JSON.stringify(personDetailsArray));
 
   displayPersonInformation(personDetailsObject);
-  panArray.push(panNumberOfPerson.value);
-console.log(panArray)
+
 
   resetForm();
  
@@ -177,10 +184,10 @@ function sortingByName(e){
    
   personDetailsArray.sort((a,b)=>{
     if ( a.name < b.name ){
-      return -1;
+      return 1;
     }
     if ( a.name > b.name ){
-      return 1;
+      return -1;
     }
     return 0;
   });
@@ -189,10 +196,10 @@ function sortingByName(e){
   if(e.target.innerHTML=="Z-A"){
     personDetailsArray.sort((a,b)=>{
       if ( a.name < b.name ){
-        return 1;
+        return -1;
       }
       if ( a.name > b.name ){
-        return -1;
+        return 1;
       }
       return 0;
     });
@@ -280,7 +287,7 @@ let searchResult = personDetailsArray.filter((val)=>{
   }
 
 });
-//console.log(searchResult)
+//console.log(searchResult)addButton
 if(searchResult.length!==0){
 searchResult.map((val)=>{
   displayPersonInformation(val);
@@ -345,6 +352,10 @@ formDetails.addEventListener('click', (e)=>{
 
 //when user search something in input 
 searchPanNumber.addEventListener('input',searchByPanNumber)
+
+
+
+
 
 
 
